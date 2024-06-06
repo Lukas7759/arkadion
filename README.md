@@ -129,9 +129,6 @@ This is a simple clone of the classic Arkanoid game built using Pygame. The obje
 
 - If the ball falls below the paddle, the game will reset to the current level.
 
-## Screenshots
-
-(Add screenshots of your game here to give users a preview.)
 
 ## License
 
