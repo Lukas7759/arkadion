@@ -1,6 +1,5 @@
 # arkadion Update
 
-Of course! Here is the description in English:
 
 ## Project Description
 
