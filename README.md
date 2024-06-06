@@ -1,8 +1,74 @@
-# arkadion
+# arkadion Update
 
-Oto przykładowy opis gry, który możesz wykorzystać do umieszczenia na GitHubie:
+Of course! Here is the description in English:
 
----
+## Project Description
+
+This is a computer game written in Python using the Pygame library. The game involves bouncing a ball using a paddle, breaking bricks, and earning points. It includes features for saving and loading game states, a shop with different balls, and difficulty levels. The player can progress through various levels, earn points, and purchase different balls in the shop with the points earned.
+
+## Code Structure
+
+1. **Importing Modules and Changing the Working Directory:**
+   The code starts by importing necessary modules like `os`, `pygame`, `sys`, `random`, and `pickle`. It then changes the working directory to a specified path.
+
+2. **Constants for Shop Prices:**
+   Defines a dictionary `CENY` that stores the prices of different balls available in the shop.
+
+3. **Global Variables:**
+   Defines several global variables such as `punkty` (points), `czas_w_grze` (game time), `zakupione_pilki` (purchased balls), `aktualna_pilka` (current ball), `poziom` (level), `ruch_x` (ball speed in the x direction), `ruch_y` (ball speed in the y direction), `ruch_pada` (paddle speed), `odtwarzaj_point_wav` (play point.wav), which are used throughout the program.
+
+4. **Helper Functions:**
+   - `reset()`: Resets the position of the ball and paddle, and the ball speed.
+   - `generuj_cegielki()`: Generates bricks in random positions on the screen.
+   - `przejscie_na_kolejny_poziom()`: Moves to the next level, increasing the game difficulty.
+   - `zapisz_stan_gry()`: Saves the current game state to a file `stan_gry.pkl`.
+   - `wczytaj_stan_gry()`: Loads the game state from the file `stan_gry.pkl`.
+   - `odtworz_dzwiek(plik)`: Plays a sound from the specified file.
+   - `rysuj_tekst(tekst, pozycja, rozmiar=36)`: Draws text on the screen at a specified position and size.
+   - `pokaz_menu()`: Displays the main menu of the game.
+   - `sklepik()`: Displays the shop where the player can buy different balls.
+
+5. **Pygame Initialization:**
+   Initializes Pygame, sets the game window size, and loads sounds and images. It handles exceptions related to image loading.
+
+6. **Game Loop:**
+   - Displays the main menu and waits for the player's choice.
+   - Depending on the player's choice (new game, continue game, or shop), the corresponding functions are called.
+   - The main game loop handles game logic, including ball movement, collisions with paddles and bricks, updating points, level transitions, and drawing all elements on the screen.
+
+7. **Ending the Game:**
+   If the player completes all levels, a winning message is displayed, and the game ends.
+
+## Running the Game
+
+To run the game, you need to have the Pygame library installed. You can do this using the command:
+```bash
+pip install pygame
+```
+
+Then simply run the script in Python:
+```bash
+python projekt.py
+```
+
+### Main Controls in the Game:
+- Arrow keys left/right or A/D keys: Move the paddle left/right.
+- ESC: Save the game state and return to the menu.
+- In the menu:
+  - 1: New game.
+  - 2: Continue game.
+  - 3: Shop.
+  - 4: Exit the game.
+
+### In the Shop:
+- 1: Buy the basketball.
+- 2: Buy the football.
+- 3: Buy the geometry_dash ball.
+- 4: Buy the super_mario ball.
+- 5: Buy the point.mp3 sound.
+- ESC: Return to the menu.
+
+That's all! Now you can upload this description along with the code to GitHub to share your game with others.
 
 # Arkanoid Clone Game
 
@@ -29,7 +95,7 @@ This is a simple clone of the classic Arkanoid game built using Pygame. The obje
 3. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/arkanoid-clone.git
+    git clone https://github.com/Lukas7759/arkadion
     ```
 
 4. Navigate to the project directory:
