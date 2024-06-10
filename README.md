@@ -1,3 +1,51 @@
+
+
+### Update Description 3.9 June
+
+**Version 3.9 - June 4th Update**
+
+**New Features and Improvements:**
+
+1. **Heart System for Lives:**
+   - Added a new heart system to represent player lives.
+   - Players start with 8 lives.
+   - Each lost life decreases the score by 10 points.
+   - If all lives are lost, the game displays a "Game Over" message and returns to the main menu.
+   - Hearts are displayed at the bottom of the screen during gameplay.
+
+2. **Main Menu Enhancements:**
+   - Added an option to start a new game, continue a saved game, access the shop, or exit the game.
+   - Displayed the total time spent in the game.
+   - Added version and update date information at the bottom of the menu.
+
+3. **Shop System:**
+   - Players can now spend points to purchase different types of balls and a special sound effect.
+   - Available items:
+     - Basketball - 400 points
+     - Football - 525 points
+     - Geometry Dash ball - 1500 points
+     - Super Mario ball - 3000 points
+     - Point sound effect - 2000 points
+
+4. **Game State Saving and Loading:**
+   - Implemented game state saving and loading using pickle.
+   - The game state includes the ball position, paddle position, score, level, remaining lives, purchased items, and more.
+
+5. **Sound Effects:**
+   - Added sound effects for game startup and shutdown.
+   - Added an optional sound effect for scoring points, which can be purchased in the shop.
+
+6. **Bug Fixes and Performance Improvements:**
+   - Fixed issues with image loading before initializing the display.
+   - Improved game loop and event handling for smoother gameplay.
+
+**Files Updated:**
+- `projekt.py`
+
+---
+
+
+
 # arkadion Update
 
 
