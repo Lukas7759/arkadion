@@ -4,7 +4,6 @@ import sys
 import random
 import pickle
 
-
 # Stałe do cen w sklepiku
 CENY = {
     "basketball": 400,
@@ -30,6 +29,7 @@ ruch_x = 5
 ruch_y = 5
 ruch_pada = 5
 odtwarzaj_point_wav = False
+życia = 8  # Dodane zmienna dla liczby żyć
 
 def reset():
     global piłka_rect, pad_rect, ruch_x, ruch_y
@@ -65,13 +65,14 @@ def zapisz_stan_gry():
         "czas_w_grze": czas_w_grze,
         "zakupione_pilki": zakupione_pilki,
         "aktualna_pilka": aktualna_pilka,
-        "odtwarzaj_point_wav": odtwarzaj_point_wav
+        "odtwarzaj_point_wav": odtwarzaj_point_wav,
+        "życia": życia  # Dodano życie do stanu gry
     }
     with open("stan_gry.pkl", "wb") as plik:
         pickle.dump(stan_gry, plik)
 
 def wczytaj_stan_gry():
-    global piłka_rect, pad_rect, ruch_x, ruch_y, punkty, poziom, cegielki, czas_w_grze, zakupione_pilki, aktualna_pilka, odtwarzaj_point_wav
+    global piłka_rect, pad_rect, ruch_x, ruch_y, punkty, poziom, cegielki, czas_w_grze, zakupione_pilki, aktualna_pilka, odtwarzaj_point_wav, życia
     if os.path.exists("stan_gry.pkl"):
         with open("stan_gry.pkl", "rb") as plik:
             stan_gry = pickle.load(plik)
@@ -86,6 +87,7 @@ def wczytaj_stan_gry():
             zakupione_pilki = stan_gry["zakupione_pilki"]
             aktualna_pilka = stan_gry["aktualna_pilka"]
             odtwarzaj_point_wav = stan_gry["odtwarzaj_point_wav"]
+            życia = stan_gry["życia"]  # Wczytanie życia
     else:
         reset()
         generuj_cegielki()
@@ -97,6 +99,10 @@ def rysuj_tekst(tekst, pozycja, rozmiar=36):
     font = pygame.font.SysFont(None, rozmiar)
     render_tekst = font.render(tekst, True, (255, 255, 255))
     ekran.blit(render_tekst, pozycja)
+
+def rysuj_życia():
+    for i in range(życia):
+        ekran.blit(serce, (10 + i * 25, wysokość_ekranu - 30))
 
 def pokaz_menu():
     global czas_w_grze
@@ -129,8 +135,9 @@ def pokaz_menu():
         rysuj_tekst("3. Sklepik", (100, 250))
         rysuj_tekst("4. Wyjście", (100, 300))
         rysuj_tekst(f"Czas w grze: {czas_w_grze // 60} minut", (100, 350))
+        rysuj_tekst("Version 3.9 June 4-st update Arkanoib by © Bazyli", (100, 400))
         pygame.display.flip()
-        zegar.tick(45)
+        zegar.tick(43)
 
 def sklepik():
     global punkty, aktualna_pilka, odtwarzaj_point_wav
@@ -216,6 +223,10 @@ except pygame.error as e:
     print(f"Błąd ładowania obrazów: {e}")
     sys.exit()
 
+# Ładowanie obrazu serca po inicjalizacji pygame.display
+serce = pygame.image.load('hearth.png').convert_alpha()
+serce = pygame.transform.scale(serce, (20, 20))
+
 piłka_rect = piłka.get_rect()
 pad_rect = pad.get_rect(midbottom=(szerokość_ekranu // 2, wysokość_ekranu - 30))
 
@@ -230,6 +241,7 @@ while True:
         poziom = 1
         punkty = 0
         czas_w_grze = 0
+        życia = 8  # Resetuj życie na nową grę
     elif wybór == "kontynuuj_gre":
         wczytaj_stan_gry()
     elif wybór == "sklepik":
@@ -267,6 +279,11 @@ while True:
             ruch_y = -ruch_y
         
         if piłka_rect.bottom > wysokość_ekranu:
+            życia -= 1
+            punkty -= 10
+            if życia <= 0:
+                game_work = False
+                break
             reset()
         
         for cegielka in cegielki[:]:
@@ -303,6 +320,7 @@ while True:
         
         rysuj_tekst(f"Punkty: {punkty}", (10, 10))
         rysuj_tekst(f"Poziom: {poziom}", (10, 50))
+        rysuj_życia()
         
         pygame.display.flip()
         zegar.tick(45)  # Stała prędkość ticków: 45
@@ -313,3 +331,10 @@ while True:
         pygame.time.wait(4000)
         pygame.quit()
         sys.exit()
+    
+    # Dodanie obsługi game over
+    if życia <= 0:
+        rysuj_tekst("Game Over! Straciłeś wszystkie życia!", (szerokość_ekranu // 2 - 200, wysokość_ekranu // 2), 48)
+        pygame.display.flip()
+        pygame.time.wait(4000)
+        continue  # Powrót do menu
