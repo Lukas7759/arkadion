@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+
+
 import os
 import pygame
 import sys
@@ -29,7 +33,8 @@ ruch_x = 5
 ruch_y = 5
 ruch_pada = 5
 odtwarzaj_point_wav = False
-życia = 8  # Dodane zmienna dla liczby żyć
+życia = 10
+
 
 def reset():
     global piłka_rect, pad_rect, ruch_x, ruch_y
@@ -137,7 +142,7 @@ def pokaz_menu():
         rysuj_tekst(f"Czas w grze: {czas_w_grze // 60} minut", (100, 350))
         rysuj_tekst("Version 3.9 June 4-st update Arkanoib by © Bazyli", (100, 400))
         pygame.display.flip()
-        zegar.tick(43)
+        zegar.tick(60)
 
 def sklepik():
     global punkty, aktualna_pilka, odtwarzaj_point_wav
@@ -187,7 +192,7 @@ def sklepik():
         rysuj_tekst(f"5. Point.mp3 - 2000 pkt", (100, 350))
         rysuj_tekst("ESC - Powrót do menu", (100, 400))
         pygame.display.flip()
-        zegar.tick(45)
+        zegar.tick(60)
 
 pygame.init()
 
@@ -323,7 +328,7 @@ while True:
         rysuj_życia()
         
         pygame.display.flip()
-        zegar.tick(45)  # Stała prędkość ticków: 45
+        zegar.tick(60)  # Stała prędkość ticków: 45
 
     if poziom > 13:
         rysuj_tekst("Wygrana! Zdobyłeś wszystkie poziomy!", (szerokość_ekranu // 2 - 200, wysokość_ekranu // 2), 48)
