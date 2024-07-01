@@ -140,7 +140,7 @@ def pokaz_menu():
         rysuj_tekst("3. Sklepik", (100, 250))
         rysuj_tekst("4. Wyjście", (100, 300))
         rysuj_tekst(f"Czas w grze: {czas_w_grze // 60} minut", (100, 350))
-        rysuj_tekst("Version 3.9 June 4-st update Arkanoib by © Bazyli", (100, 400))
+        rysuj_tekst("Version 4.0 Jun 5-st update Arkanoib by © Bazyli", (100, 400))
         pygame.display.flip()
         zegar.tick(60)
 
@@ -196,7 +196,7 @@ def sklepik():
 
 pygame.init()
 
-szerokość_ekranu = 644
+szerokość_ekranu = 800
 wysokość_ekranu = 600
 
 ekran = pygame.display.set_mode([szerokość_ekranu, wysokość_ekranu])
