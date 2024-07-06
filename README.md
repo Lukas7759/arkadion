@@ -1,5 +1,5 @@
 
-## Arkanoid by Bazyli
+## Arkanoid by Bazyli 4.5 jun update
 
 This project is a modern take on the classic Arkanoid game, developed using Python and Pygame. The game includes features such as a shop system where players can purchase different balls and backgrounds, saving and loading game states, and a dynamic level progression system.
 
