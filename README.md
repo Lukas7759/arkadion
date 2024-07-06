@@ -1,13 +1,3 @@
-###July Update 4.0
-
-
-Changes tick 45 to 60
-
-
-add repository screenshot's game
-
-
-https://github.com/Lukas7759/arknoid-screen.git
 
 
 ### Update Description 3.9 June
