@@ -1,4 +1,79 @@
 
+## Arkanoid by Bazyli
+
+This project is a modern take on the classic Arkanoid game, developed using Python and Pygame. The game includes features such as a shop system where players can purchase different balls and backgrounds, saving and loading game states, and a dynamic level progression system.
+
+### Features
+
+1. **Dynamic Gameplay:**
+   - Classic Arkanoid mechanics with ball, paddle, and brick collision.
+   - Increasing difficulty levels with more bricks as the player progresses.
+
+2. **Shop System:**
+   - Players can use points earned in-game to purchase new balls and backgrounds.
+   - Different items have different point costs, adding a strategic element to the game.
+
+3. **Save and Load:**
+   - The game state, including current score, level, purchased items, and positions, is saved in a pickle file.
+   - Players can load their saved game state to continue from where they left off.
+
+4. **Customizable Visuals:**
+   - Multiple ball and background options that can be unlocked and selected through the shop.
+
+5. **Sound Effects:**
+   - Audio feedback for game events such as scoring and game over.
+   - Purchase of sound effects through the shop system.
+
+### How to Run
+
+1. Ensure you have Python and Pygame installed. You can install Pygame using pip:
+   ```bash
+   pip install pygame
+   ```
+
+2. Place the following required image and sound files in the same directory as the script:
+   - `bg_default.png`
+   - `bg1.png`
+   - `bg2.png`
+   - `bg3.png`
+   - `bg4.png`
+   - `ball.png`
+   - `basketball.png`
+   - `football.png`
+   - `geometry_dash.png`
+   - `super_mario.png`
+   - `heart.png`
+   - `point.wav`
+   - `shutdown.mp3`
+
+3. Run the script:
+   ```bash
+   python projekt.py
+   ```
+
+### Game Controls
+
+- **Arrow Keys:** Move the paddle left and right.
+- **ESC:** Open the game menu.
+- **1-9:** Purchase items in the shop.
+- **Quit:** Exit the game and save the state.
+
+### Files Description
+
+- `projekt.py`: Main game script.
+- `stan_gry.pkl`: Saved game state file (automatically generated).
+
+### Future Improvements
+
+- Add more levels and different types of bricks.
+- Introduce power-ups and special abilities.
+- Improve graphics and add animations.
+
+### License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
 
 ### Update Description 3.9 June
 
