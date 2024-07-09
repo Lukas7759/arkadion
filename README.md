@@ -1,4 +1,4 @@
-In this update 5.0 June
+**In this update 5.0 June**
 
 1. **Life Regeneration in Shop**: Added a new item to the shop where players can spend 1000 points to regenerate 7 lives. This enhances gameplay longevity by allowing players to continue playing even after losing all lives multiple times.
 
