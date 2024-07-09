@@ -1,3 +1,21 @@
+In this update 5.0 June
+
+1. **Life Regeneration in Shop**: Added a new item to the shop where players can spend 1000 points to regenerate 7 lives. This enhances gameplay longevity by allowing players to continue playing even after losing all lives multiple times.
+
+2. **Code Refactoring and Optimization**: Improved the overall code structure and optimized performance in various sections of the game to enhance reliability and efficiency.
+
+3. **Bug Fixes**: Addressed several bugs and issues reported by users, ensuring a smoother gameplay experience without unexpected interruptions.
+
+4. **Documentation and Comments**: Updated code comments and added comprehensive documentation to facilitate easier understanding and maintenance of the codebase.
+
+5. **User Interface Enhancements**: Tweaked the user interface in the shop section to provide clearer information about available items and their prices, making it easier for players to navigate and make purchasing decisions.
+
+6. **Sound Effects**: Included additional sound effects to enhance the gaming experience, such as new audio cues for significant in-game events.
+
+7. **Menu and Navigation**: Improved menu navigation responsiveness and added visual indicators to highlight selected options, improving overall user interaction.
+
+These updates collectively aim to provide a more engaging and polished gaming experience for players, addressing both gameplay mechanics and user interface aspects.
+
 
 
 ### Update Description 3.9 June
