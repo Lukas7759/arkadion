@@ -16,11 +16,12 @@ CENY = {
     "bg1": 500,
     "bg2": 1000,
     "bg3": 1500,
-    "bg4": 2000
+    "bg4": 2000,
+    "regen_życia": 1000  # Dodana cena regeneracji życia
 }
 
 # Globalne zmienne
-punkty = 500
+punkty = 5000
 czas_w_grze = 0
 zakupione_pilki = {
     "default": True,
@@ -43,7 +44,7 @@ ruch_x = 5
 ruch_y = 5
 ruch_pada = 5
 odtwarzaj_point_wav = False
-życia = 10
+życia = 13
 
 def reset():
     global piłka_rect, pad_rect, ruch_x, ruch_y
@@ -60,7 +61,7 @@ def generuj_cegielki():
 def przejscie_na_kolejny_poziom():
     global poziom
     poziom += 1
-    if poziom > 13:
+    if poziom > 50:
         return True  # Gracz wygrał
     reset()
     generuj_cegielki()
@@ -120,7 +121,7 @@ def rysuj_tekst(tekst, pozycja, rozmiar=36):
 
 def rysuj_życia():
     for i in range(życia):
-        ekran.blit(serce, (10 + i * 25, wysokość_ekranu - 30))
+        ekran.blit(serce, (10 + i * 25, wysokość_ekranu - 40))
 
 def pokaz_menu():
     global czas_w_grze
@@ -153,12 +154,12 @@ def pokaz_menu():
         rysuj_tekst("3. Sklepik", (100, 250))
         rysuj_tekst("4. Wyjście", (100, 300))
         rysuj_tekst(f"Czas w grze: {czas_w_grze // 60000} minut", (100, 350))
-        rysuj_tekst("Version 4.5 June 4-st update Arkanoid by © Bazyli", (100, 400))
+        rysuj_tekst("Version 5.0 June update Arkanoid by © Bazyli", (100, 400))
         pygame.display.flip()
-        zegar.tick(60)
+        zegar.tick(65)
 
 def sklepik():
-    global punkty, aktualna_pilka, aktualne_tło, odtwarzaj_point_wav
+    global punkty, aktualna_pilka, aktualne_tło, odtwarzaj_point_wav, życia
     shop = True
     while shop:
         for event in pygame.event.get():
@@ -202,131 +203,184 @@ def sklepik():
                     punkty -= CENY["bg4"]
                     zakupione_tła["bg4"] = True
                     aktualne_tło = "bg4"
-                elif event.key == pygame.K_ESCAPE:
-                    shop = False
+                elif event.key == pygame.K_r and punkty >= CENY["regen_życia"]:
+                    punkty -= CENY["regen_życia"]
+                    życia = 13
+                elif event.key == pygame.K_q:
+                    return
 
         ekran.blit(tła[aktualne_tło], (0, 0))
         rysuj_tekst("Sklepik", (szerokość_ekranu // 2 - 50, 50), 48)
+        rysuj_tekst(f"Twoje punkty: {punkty}", (100, 100))
         rysuj_tekst("1. Basketball - 400 punktów", (100, 150))
+        ekran.blit(pygame.image.load("basketball.png"), (400, 150))  # Przykładowy obrazek miniatury
         rysuj_tekst("2. Football - 525 punktów", (100, 200))
+        ekran.blit(pygame.image.load("football.png"), (400, 200))  # Przykładowy obrazek miniatury
         rysuj_tekst("3. Geometry Dash - 1500 punktów", (100, 250))
+        ekran.blit(pygame.image.load("geometry_dash.png"), (400, 250))  # Przykładowy obrazek miniatury
         rysuj_tekst("4. Super Mario - 3000 punktów", (100, 300))
+        ekran.blit(pygame.image.load("super_mario.png"), (400, 300))  # Przykładowy obrazek miniatury
         rysuj_tekst("5. Point.mp3 - 2000 punktów", (100, 350))
         rysuj_tekst("6. Tło 1 - 500 punktów", (100, 400))
+        ekran.blit(pygame.image.load("bg1.png"), (400, 400))  # Przykładowy obrazek miniatury
         rysuj_tekst("7. Tło 2 - 1000 punktów", (100, 450))
+        ekran.blit(pygame.image.load("bg2.png"), (400, 450))  # Przykładowy obrazek miniatury
         rysuj_tekst("8. Tło 3 - 1500 punktów", (100, 500))
+        ekran.blit(pygame.image.load("bg3.png"), (400, 500))  # Przykładowy obrazek miniatury
         rysuj_tekst("9. Tło 4 - 2000 punktów", (100, 550))
-        rysuj_tekst("Punkty: " + str(punkty), (100, 600))
+        ekran.blit(pygame.image.load("bg4.png"), (400, 550))  # Przykładowy obrazek miniatury
+        rysuj_tekst("R. Regeneracja żyć - 1000 punktów", (100, 600))
+        rysuj_tekst("Q. Powrót", (100, 650))
         pygame.display.flip()
-        zegar.tick(60)
+        zegar.tick(65)
 
-# Inicjalizacja gry
+# Inicjalizacja Pygame
 pygame.init()
-szerokość_ekranu = 800
-wysokość_ekranu = 600
+
+# Rozdzielczość ekranu
+szerokość_ekranu, wysokość_ekranu = 1000, 670
 ekran = pygame.display.set_mode((szerokość_ekranu, wysokość_ekranu))
-pygame.display.set_caption("Arkanoid by Bazyli")
+
+# Tytuł okna
+pygame.display.set_caption("Arkanoid by © Bazyli 5.0 June update")
+
+# Zegar
 zegar = pygame.time.Clock()
 
-# Wczytywanie zasobów
+# Ładowanie obrazków i dźwięków
+piłka_img = pygame.image.load("ball.png")
+basketball_img = pygame.image.load("basketball.png")
+football_img = pygame.image.load("football.png")
+geometry_dash_img = pygame.image.load("geometry_dash.png")
+super_mario_img = pygame.image.load("super_mario.png")
+
 tła = {
-    "default": pygame.image.load("bg_default.png"),
-    "bg1": pygame.image.load("bg1.png"),
-    "bg2": pygame.image.load("bg2.png"),
-    "bg3": pygame.image.load("bg3.png"),
-    "bg4": pygame.image.load("bg4.png")
+    "default": pygame.image.load("background.png"),
+    "bg1": pygame.image.load("background1.png"),
+    "bg2": pygame.image.load("background2.png"),
+    "bg3": pygame.image.load("background3.png"),
+    "bg4": pygame.image.load("background4.png")
 }
 
 piłki = {
-    "default": pygame.image.load("ball.png"),
-    "basketball": pygame.image.load("basketball.png"),
-    "football": pygame.image.load("football.png"),
-    "geometry_dash": pygame.image.load("geometry_dash.png"),
-    "super_mario": pygame.image.load("super_mario.png")
+    "default": piłka_img,
+    "basketball": basketball_img,
+    "football": football_img,
+    "geometry_dash": geometry_dash_img,
+    "super_mario": super_mario_img
 }
 
+pad_img = pygame.image.load("pad.png")
 serce = pygame.image.load("heart.png")
-piłka_rect = piłki[aktualna_pilka].get_rect()
-pad_rect = pygame.Rect(szerokość_ekranu // 2 - 50, wysokość_ekranu - 20, 100, 10)
-cegielki = []
 
-# Główna pętla gry
+# Tworzenie prostokątów
+piłka_rect = piłka_img.get_rect()
+pad_rect = pad_img.get_rect()
+pad_rect.topleft = (szerokość_ekranu // 2, wysokość_ekranu - 50)
+
+# Wczytanie stanu gry
 wczytaj_stan_gry()
 
-while True:
-    ekran.blit(tła[aktualne_tło], (0, 0))
+# Główna pętla gry
+gra = True
+while gra:
+    # Obsługa menu
+    akcja = pokaz_menu()
+    if akcja == "nowa_gra":
+        reset()
+        poziom = 1
+        życia = 13
+        punkty = 500
+        zakupione_pilki = {
+            "default": True,
+            "basketball": False,
+            "football": False,
+            "geometry_dash": False,
+            "super_mario": False
+        }
+        zakupione_tła = {
+            "default": True,
+            "bg1": False,
+            "bg2": False,
+            "bg3": False,
+            "bg4": False
+        }
+        aktualna_pilka = "default"
+        aktualne_tło = "default"
+        generuj_cegielki()
+    elif akcja == "kontynuuj_gre":
+        pass
+    elif akcja == "sklepik":
+        sklepik()
+        continue
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            zapisz_stan_gry()
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                wybor = pokaz_menu()
-                if wybor == "nowa_gra":
-                    punkty = 0
-                    poziom = 1
-                    reset()
-                    generuj_cegielki()
-                    życia = 10
-                elif wybor == "kontynuuj_gre":
-                    pass
-                elif wybor == "sklepik":
-                    sklepik()
+    # Pętla gry
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                zapisz_stan_gry()
+                pygame.quit()
+                sys.exit()
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        pad_rect.x -= ruch_pada
-    if keys[pygame.K_RIGHT]:
-        pad_rect.x += ruch_pada
+        klawisze = pygame.key.get_pressed()
+        if klawisze[pygame.K_LEFT]:
+            pad_rect.x -= ruch_pada
+        if klawisze[pygame.K_RIGHT]:
+            pad_rect.x += ruch_pada
 
-    piłka_rect.x += ruch_x
-    piłka_rect.y += ruch_y
+        # Aktualizacja pozycji piłki
+        piłka_rect.x += ruch_x
+        piłka_rect.y += ruch_y
 
-    if piłka_rect.left <= 0 or piłka_rect.right >= szerokość_ekranu:
-        ruch_x = -ruch_x
-    if piłka_rect.top <= 0:
-        ruch_y = -ruch_y
-    if piłka_rect.colliderect(pad_rect):
-        ruch_y = -ruch_y
-
-    for cegielka in cegielki[:]:
-        if piłka_rect.colliderect(cegielka):
-            cegielki.remove(cegielka)
+        # Kolizje z krawędziami ekranu
+        if piłka_rect.left <= 0 or piłka_rect.right >= szerokość_ekranu:
+            ruch_x = -ruch_x
+        if piłka_rect.top <= 0:
             ruch_y = -ruch_y
-            punkty += 10
-            if odtwarzaj_point_wav:
-                odtworz_dzwiek("point.wav")
+        if piłka_rect.bottom >= wysokość_ekranu:
+            życia -= 1
+            if życia <= 0:
+                rysuj_tekst("Game Over", (szerokość_ekranu // 2 - 100, wysokość_ekranu // 2))
+                pygame.display.flip()
+                pygame.time.wait(2000)
+                gra = False
+                break
+            else:
+                reset()
 
-    if piłka_rect.bottom >= wysokość_ekranu:
-        życia -= 1
-        if życia <= 0:
-            rysuj_tekst("Koniec gry!", (szerokość_ekranu // 2 - 100, wysokość_ekranu // 2), 72)
-            pygame.display.flip()
-            pygame.time.wait(2000)
-            zapisz_stan_gry()
-            pygame.quit()
-            sys.exit()
-        else:
-            reset()
+        # Kolizje z padem
+        if piłka_rect.colliderect(pad_rect):
+            ruch_y = -ruch_y
 
-    if not cegielki:
-        if przejscie_na_kolejny_poziom():
-            rysuj_tekst("Wygrałeś!", (szerokość_ekranu // 2 - 100, wysokość_ekranu // 2), 72)
-            pygame.display.flip()
-            pygame.time.wait(2000)
-            zapisz_stan_gry()
-            pygame.quit()
-            sys.exit()
+        # Kolizje z cegiełkami
+        for cegielka in cegielki[:]:
+            if piłka_rect.colliderect(cegielka):
+                cegielki.remove(cegielka)
+                ruch_y = -ruch_y
+                punkty += 10
+                if odtwarzaj_point_wav:
+                    odtworz_dzwiek("point.mp3")
+                if not cegielki:
+                    if przejscie_na_kolejny_poziom():
+                        rysuj_tekst("Gratulacje! Wygrałeś!", (szerokość_ekranu // 2 - 100, wysokość_ekranu // 2))
+                        pygame.display.flip()
+                        pygame.time.wait(2000)
+                        gra = False
+                        break
 
-    ekran.blit(piłki[aktualna_pilka], piłka_rect)
-    pygame.draw.rect(ekran, (255, 255, 255), pad_rect)
-    for cegielka in cegielki:
-        pygame.draw.rect(ekran, (255, 0, 0), cegielka)
+        # Rysowanie
+        ekran.blit(tła[aktualne_tło], (0, 0))
+        ekran.blit(piłki[aktualna_pilka], piłka_rect)
+        ekran.blit(pad_img, pad_rect)
+        for cegielka in cegielki:
+            pygame.draw.rect(ekran, (255, 0, 0), cegielka)
+        rysuj_tekst(f"Poziom: {poziom}", (10, 10))
+        rysuj_tekst(f"Punkty: {punkty}", (10, 50))
+        rysuj_życia()
+        pygame.display.flip()
+        zegar.tick(65)
+        czas_w_grze += 16.67
 
-    rysuj_tekst(f"Punkty: {punkty}", (10, 10))
-    rysuj_życia()
-    pygame.display.flip()
-    zegar.tick(60)
-    czas_w_grze += zegar.get_time()
+# Zakończenie gry
+zapisz_stan_gry()
+pygame.quit()
